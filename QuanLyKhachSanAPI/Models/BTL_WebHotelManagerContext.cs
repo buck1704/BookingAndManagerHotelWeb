@@ -35,7 +35,11 @@ namespace QuanLyKhachSanAPI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-R53COF4\\SQLEXPRESS;Database=BTL_WebHotelManager;User=sa;Password=15022002;");
+                String NameServer = "IdeaPad\\SQLEXPRESS";
+                String Database = "BTL_WebHotelManager";
+                String User = "sa";
+                String Password = "";
+                optionsBuilder.UseSqlServer("Server="+ NameServer + ";Database="+ Database +";User="+ User +";Password="+ Password +";");
 
             }
         }
