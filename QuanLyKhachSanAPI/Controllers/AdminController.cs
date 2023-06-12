@@ -924,7 +924,6 @@ namespace QuanLyKhachSanAPI.Controllers
                          from cate3 in dv.DefaultIfEmpty()
                          group new { cate3.TenDichVu, cate3.DonGia } by new
                          {
-
                              a.MaDp,
                              b.TenPhong,
                              b.GiaPhong,
@@ -991,7 +990,7 @@ namespace QuanLyKhachSanAPI.Controllers
                              c.TongTien,
                              f.Id,
                              f.HoTen,
-                             f.Email , 
+                             f.Email, 
                              f.Sdt
                          } into g
                          select new
@@ -1008,7 +1007,6 @@ namespace QuanLyKhachSanAPI.Controllers
                              g.Key.NgayTt,
                              g.Key.TongTien,
                              g.Key.PhuongThucThanhToan,
-                        
                              ThanhTien = (g.Key.NgayDi - g.Key.NgayDen).TotalDays * g.Key.GiaPhong + g.Key.TongTien,
                              DichVu = g.Select(x => new
                              {
@@ -1016,8 +1014,6 @@ namespace QuanLyKhachSanAPI.Controllers
                                  DonGia = x.DonGia != null ? x.DonGia : 0
                              }).ToList()
                          }).ToList();
-
-
 
             if (rooms.Count() == 0)
             {

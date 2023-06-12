@@ -420,8 +420,8 @@ namespace QuanLyKhachSanClient.Controllers
             string ngaydi = HttpContext.Session.GetString("NgayDi");
             DateTime ngayDen = DateTime.ParseExact(ngayden, "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
             DateTime ngayDi = DateTime.ParseExact(ngaydi, "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
-            //thêm phiếu đặt phòng
 
+            //thêm phiếu đặt phòng
             int idkhachhang = HttpContext.Session.GetInt32("IDkhachhang") ?? 1;
             string hoten = HttpContext.Session.GetString("HoTen");
             string sdt = HttpContext.Session.GetString("Sdt");
@@ -430,17 +430,17 @@ namespace QuanLyKhachSanClient.Controllers
             string pass = HttpContext.Session.GetString("PassWord");
             int idloaiphong = HttpContext.Session.GetInt32("ID_loaiPhong") ?? 1;
             string tenphong = HttpContext.Session.GetString("TenPhong");
-            int nguoimax = HttpContext.Session.GetInt32("NguoiMax")??1;
+            int nguoimax = HttpContext.Session.GetInt32("NguoiMax") ?? 1;
             string loaigiuong = HttpContext.Session.GetString("LoaiGiuong");
-            int giaphong = HttpContext.Session.GetInt32("GiaPhong")??0;
-            int tinhtrang = HttpContext.Session.GetInt32("TinhTrang")??0;
+            int giaphong = HttpContext.Session.GetInt32("GiaPhong") ?? 0;
+            int tinhtrang = HttpContext.Session.GetInt32("TinhTrang") ?? 0;
             string img = HttpContext.Session.GetString("Img");
             string dientich = HttpContext.Session.GetString("DienTich");
             string tamnhin = HttpContext.Session.GetString("TamNhin");
             string mota = HttpContext.Session.GetString("MoTa");
+
             var khachHang = new Quanlytaikhoan
             {
-                
                 Id=idkhachhang,
                 HoTen =hoten,
                 Sdt = sdt,
@@ -491,7 +491,6 @@ namespace QuanLyKhachSanClient.Controllers
             ViewBag.MaPhong = successMessage.maPhong;
 
             //thêm phiếu dịch vụ
-           
             var phieudichvu = new Phieudichvu
             {
                 MaDp = ViewBag.MaPhong,
@@ -546,7 +545,6 @@ namespace QuanLyKhachSanClient.Controllers
                     }
                 }
 
-
                 var content4 = new StringContent(JsonConvert.SerializeObject(chitietdichvuList), Encoding.UTF8, "application/json");
                 var ctdvresponse = await client.PostAsync(BASE_URL + "/api/HotelManager/themchitietdichvu", content4);
                 var errorContent2 = await ctdvresponse.Content.ReadAsStringAsync();
@@ -557,8 +555,6 @@ namespace QuanLyKhachSanClient.Controllers
                     return View("payb2ddn");
                 }
             }
-
-
             // cập nhập phòng
 
             var data = new { Id = Id };

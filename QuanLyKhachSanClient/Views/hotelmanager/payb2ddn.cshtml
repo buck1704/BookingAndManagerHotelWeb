@@ -13,8 +13,6 @@
     string NgayDi = HttpContextAccessor.HttpContext.Session.GetString("ngdic");
 }
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -121,7 +119,7 @@
                         <div>
                             <p class="m-0 ms-5" style="font-family:Montserrat-Regular;">
                                 1 phòng x
-                                    @ViewBag.ngayo
+                                @ViewBag.ngayo
                                 ngày
                             </p>
                         </div>
@@ -129,7 +127,7 @@
                     <div class="col-6 ">
                         <div>
                             <p class="m-0" style=" padding-left: 200px; font-family:Montserrat-Regular;color:white">
-                               @ViewBag.tienphong
+                                @ViewBag.tienphong
                                 VNĐ
                             </p>
                         </div>
@@ -144,10 +142,9 @@
                     </div>
                     <div class="col-6 ">
                         <div>
-                            <p class="m-0" style=" padding-left: 200px; font-family:Montserrat-Regular;color:white">@ViewBag.tongtiendichvu VNĐ</p>
+                            <p class="m-0" style=" padding-left: 200px; font-family:Montserrat-Regular;color:white">
+                                @ViewBag.tongtiendichvu VNĐ</p>
                         </div>
-
-
 
                     </div>
                 </div>
@@ -161,7 +158,7 @@
                     <div class="col-6">
                         <div>
                             <h5 style="color:white; padding-left: 200px; font-family:Montserrat-Regular;">
-                               @ViewBag.thanhtien
+                                @ViewBag.thanhtien
                                 VNĐ
                             </h5>
                         </div>
@@ -171,14 +168,15 @@
                 <div class="row mt-2">
                     <div class="col-6 d-flex">
                         <div>
-                            <h5 class="ms-5" style="font-family:Montserrat-Regular; font-size:18px;">Ưu đãi giảm giá</h5>
+                            <h5 class="ms-5" style="font-family:Montserrat-Regular; font-size:18px;">Ưu đãi giảm giá
+                            </h5>
                         </div>
                     </div>
                     <div class="col-6">
                         <div>
                             <h5 style="color:white; padding-left: 200px; font-family:Montserrat-Regular;">
-                               @ViewBag.giamgia
-                                    VNĐ
+                                @ViewBag.giamgia
+                                VNĐ
                             </h5>
                         </div>
                     </div>
@@ -268,7 +266,6 @@
                 </div>
                 <div class="col-6 ">
                     <input type="radio" id="atm" name="thanhtoan" value="Thẻ ATM/Tài khoản ngân hàng">
-
                 </div>
             </div>
             <hr style="width: 80%; margin: 0 50px; border: 0; border-top: 5px solid;">
@@ -287,7 +284,6 @@
         </section>
     </form>
 
-
     <!-- footer -->
     @Html.Partial("footer.cshtml")
 
@@ -302,4 +298,3 @@
 </body>
 
 </html>
-

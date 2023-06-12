@@ -38,7 +38,7 @@ namespace QuanLyKhachSanAPI.Models
                 String NameServer = "IdeaPad\\SQLEXPRESS";
                 String Database = "BTL_WebHotelManager";
                 String User = "sa";
-                String Password = "";
+                String Password = "sa";
                 optionsBuilder.UseSqlServer("Server="+ NameServer + ";Database="+ Database +";User="+ User +";Password="+ Password +";");
 
             }
