@@ -381,8 +381,7 @@ namespace QuanLyKhachSanClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult thanhtoan(int TongTienDichVu, string MaDichVu)
-        {
+        public IActionResult thanhtoan(int TongTienDichVu, string MaDichVu) {
             string ngayden = HttpContext.Session.GetString("NgayDen");
             string ngaydi = HttpContext.Session.GetString("NgayDi");
             DateTime ngayDen = DateTime.ParseExact(ngayden, "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
@@ -392,8 +391,7 @@ namespace QuanLyKhachSanClient.Controllers
             int TienPhong = soNgay * giaPhong;
             int ThanhTien = TongTienDichVu + TienPhong;
             int GiamGia = 0;
-            if (ThanhTien > 5000000)
-            {
+            if (ThanhTien > 5000000) {
                 GiamGia = Convert.ToInt32(ThanhTien * 0.01);
             }
             int SoTienTra = ThanhTien - GiamGia;
@@ -413,8 +411,7 @@ namespace QuanLyKhachSanClient.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ThemPhieuDatPhong(string thanhtoan, bool Huyphong=false)
-        {
+        public async Task<IActionResult> ThemPhieuDatPhong(string thanhtoan, bool Huyphong = false) {
             int Id = HttpContext.Session.GetInt32("Id_Phong") ?? 1;
             string ngayden = HttpContext.Session.GetString("NgayDen");
             string ngaydi = HttpContext.Session.GetString("NgayDi");
@@ -439,20 +436,18 @@ namespace QuanLyKhachSanClient.Controllers
             string tamnhin = HttpContext.Session.GetString("TamNhin");
             string mota = HttpContext.Session.GetString("MoTa");
 
-            var khachHang = new Quanlytaikhoan
-            {
-                Id=idkhachhang,
-                HoTen =hoten,
+            var khachHang = new Quanlytaikhoan {
+                Id = idkhachhang,
+                HoTen = hoten,
                 Sdt = sdt,
                 Email = email,
                 Cmnd = cmnd,
                 PassWord = pass
             };
 
-            var phong = new Chitietphong
-            {
-                Id= idloaiphong,
-                IdPhong =Id,
+            var phong = new Chitietphong {
+                Id = idloaiphong,
+                IdPhong = Id,
                 TenPhong = tenphong,
                 NguoiMax = nguoimax,
                 LoaiGiuong = loaigiuong,
@@ -464,8 +459,7 @@ namespace QuanLyKhachSanClient.Controllers
                 Mota = mota
             };
 
-            var phieudatphong = new Phieudatphong()
-            {
+            var phieudatphong = new Phieudatphong() {
                 Idphong = Id,
                 IdKh = HttpContext.Session.GetInt32("IDkhachhang") ?? 0,
                 PhuongThucThanhToan = thanhtoan,
@@ -477,64 +471,54 @@ namespace QuanLyKhachSanClient.Controllers
             };
 
             HttpClient client = _factory.CreateClient();
-            var content = new StringContent(JsonConvert.SerializeObject(phieudatphong), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(BASE_URL + "/api/HotelManager/themphieudatphong", content);
+            var content_phieudatphong = new StringContent(JsonConvert.SerializeObject(phieudatphong), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(BASE_URL + "/api/HotelManager/themphieudatphong", content_phieudatphong);
             string errorContent = await response.Content.ReadAsStringAsync();
-            if (!response.IsSuccessStatusCode)
-            {
+            if (!response.IsSuccessStatusCode) {
                 ViewData["error"] = "Lỗi thêm chi tiết thanh toán";
                 return View("payb2ddn");
             }
-            var responseContent = await response.Content.ReadAsStringAsync();
+            var responseContent = await response.Content.ReadAsStringAsync();                                   // đọc nội dung phản hồi
             var successMessage = JsonConvert.DeserializeObject<dynamic>(responseContent);
             ViewBag.Message = successMessage.message.ToString();
             ViewBag.MaPhong = successMessage.maPhong;
 
             //thêm phiếu dịch vụ
-            var phieudichvu = new Phieudichvu
-            {
+            var phieudichvu = new Phieudichvu {
                 MaDp = ViewBag.MaPhong,
                 TongTien = HttpContext.Session.GetInt32("TongTienDichVu") ?? 1,
                 MaDpNavigation=phieudatphong
             };
            
-            var content3 = new StringContent(JsonConvert.SerializeObject(phieudichvu), Encoding.UTF8, "application/json");
-            var dvresponse = await client.PostAsync(BASE_URL + "/api/HotelManager/themphieudichvu", content3);
-            if (!dvresponse.IsSuccessStatusCode)
-            {
+            var content_phieudichvu = new StringContent(JsonConvert.SerializeObject(phieudichvu), Encoding.UTF8, "application/json");
+            var phieudichvu_response = await client.PostAsync(BASE_URL + "/api/HotelManager/themphieudichvu", content_phieudichvu);
+            if (!phieudichvu_response.IsSuccessStatusCode) {
                 ViewData["error"] = "Lỗi thêm dịch vụ phòng";
                 return View("payb2ddn");
             }
-            var responseContent2 = await dvresponse.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<dynamic>(responseContent2);
+            var response_phieudichvu = await phieudichvu_response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<dynamic>(response_phieudichvu);
             int mapdv = result.maPhieuDichVu;
-
 
             //thêm chi tiết dịch vụ
             string MaDichVuArray = HttpContext.Session.GetString("MaDichVuArray");
             var ctdv = new List<Chitietdichvu>();
-            if (!string.IsNullOrEmpty(MaDichVuArray))
-            {
+            if (!string.IsNullOrEmpty(MaDichVuArray)) {
                 string[] maDichVuArray = JsonConvert.DeserializeObject<string[]>(MaDichVuArray);
 
                 var chitietdichvuList = new List<Chitietdichvu>();
 
-                foreach (var maDichVu in maDichVuArray)
-                {
+                foreach (var maDichVu in maDichVuArray) {
                     var responsedv = await client.GetAsync(BASE_URL + "/api/HotelManager/GetDichVu/" + maDichVu);
-                    if (responsedv.IsSuccessStatusCode)
-                    {
+                    if (responsedv.IsSuccessStatusCode) {
                         var contentdv = await responsedv.Content.ReadFromJsonAsync<Dichvu>();
-
-                        var dichVu = new Dichvu
-                        {
+                        var dichVu = new Dichvu {
                             Id = contentdv.Id,
                             TenDichVu = contentdv.TenDichVu,
                             DonGia = contentdv.DonGia,
                         };
                     
-                        var chitietdichvu = new Chitietdichvu()
-                        {
+                        var chitietdichvu = new Chitietdichvu() {
                             Mpdv = mapdv,
                             MaDV = maDichVu,
                             MpdvNavigation = phieudichvu,
@@ -545,23 +529,21 @@ namespace QuanLyKhachSanClient.Controllers
                     }
                 }
 
-                var content4 = new StringContent(JsonConvert.SerializeObject(chitietdichvuList), Encoding.UTF8, "application/json");
-                var ctdvresponse = await client.PostAsync(BASE_URL + "/api/HotelManager/themchitietdichvu", content4);
-                var errorContent2 = await ctdvresponse.Content.ReadAsStringAsync();
+                var content_ct = new StringContent(JsonConvert.SerializeObject(chitietdichvuList), Encoding.UTF8, "application/json");
+                var ctdvresponse = await client.PostAsync(BASE_URL + "/api/HotelManager/themchitietdichvu", content_ct);
+                var errorContent_ct = await ctdvresponse.Content.ReadAsStringAsync();
 
-                if (!ctdvresponse.IsSuccessStatusCode)
-                {
+                if (!ctdvresponse.IsSuccessStatusCode) {
                     ViewData["error"] = "Lỗi thêm chi tiết dịch vụ phòng";
                     return View("payb2ddn");
                 }
             }
-            // cập nhập phòng
 
+            // cập nhập phòng
             var data = new { Id = Id };
-            var content2 = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            var phongResponse = await client.PutAsync($"{BASE_URL}/api/HotelManager/CapNhapPhong/{Id}?Huyphong=false", content2);
-            if (!phongResponse.IsSuccessStatusCode)
-            {
+            var content_data = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            var phongResponse = await client.PutAsync($"{BASE_URL}/api/HotelManager/CapNhapPhong/{Id}?Huyphong=false", content_data);
+            if (!phongResponse.IsSuccessStatusCode) {
                 ViewData["error"] = "Lỗi Cập nhập phòng rồi. duma";
                 return View("payb2ddn");
             }

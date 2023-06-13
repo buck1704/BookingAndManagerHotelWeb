@@ -17,7 +17,7 @@ namespace QuanLyKhachSanAPI.Controllers
         {
             this.ctx = ctx;
         }
-        public static string url_anh = "/img/new_pic";
+        public static string url_anh = "C:\\Users\\84336\\source\\repos\\QuanLyKhachSanAPI (1)\\QuanLyKhachSanClient\\wwwroot\\img\\new_pic\\";
         [HttpGet("login/{email}/{password}")]
         public async Task<ActionResult<Taikhoanadmin>> CheckLogin(string email, string password)
         {
@@ -116,17 +116,13 @@ namespace QuanLyKhachSanAPI.Controllers
         #region room
 
         [HttpPost("Create_Room")]
-        public async Task<IActionResult> PostWithImageAsync([FromForm] Img_Chitietphong model)
-        {
+        public async Task<IActionResult> PostWithImageAsync([FromForm] Img_Chitietphong model) {
             var findP = ctx.Chitietphongs.Find(model.Id);
-            if (findP != null)
-            {
+            if (findP != null) {
                 return Ok("đã tồn tại phòng này");
             }
-            else
-            {
-                var addroom = new Chitietphong
-                {
+            else {
+                var addroom = new Chitietphong {
                     IdPhong = model.IdPhong,
                     TenPhong = model.TenPhong,
                     NguoiMax = model.NguoiMax,
@@ -137,18 +133,15 @@ namespace QuanLyKhachSanAPI.Controllers
                     TamNhin = model.TamNhin,
                     Mota = model.Mota
                 };
-                if (model.Image.Length > 0)
-                {
+                if (model.Image.Length > 0) {
                     var path = Path.Combine(Directory.GetCurrentDirectory(), url_anh, model.Image.FileName);
 
-                    using (var stream = System.IO.File.Create(path))
-                    {
+                    using (var stream = System.IO.File.Create(path)) {
                         await model.Image.CopyToAsync(stream);
                     }
                     addroom.Img = "~/img/more_pic/" + model.Image.FileName;
                 }
-                else
-                {
+                else {
                     addroom.Img = "";
                 }
                 ctx.Chitietphongs.Add(addroom);
@@ -180,8 +173,7 @@ namespace QuanLyKhachSanAPI.Controllers
         public async Task<bool> UpdateRoom([FromForm] Img_Chitietphong model)
         {
             var findP = await ctx.Chitietphongs.SingleOrDefaultAsync(t => t.Id == model.Id);
-            if (findP == null)
-            {
+            if (findP == null) {
                 return false;
             }
             findP.IdPhong = model.IdPhong;
@@ -194,26 +186,22 @@ namespace QuanLyKhachSanAPI.Controllers
             findP.TamNhin = model.TamNhin;
             findP.Mota = model.Mota;
 
-            if (model.Image.Length > 0)
-            {
-                var path = Path.Combine(Directory.GetCurrentDirectory(), url_anh,
-                    model.Image.FileName);
-                using (var stream = System.IO.File.Create(path))
-                {
+            if (model.Image.Length > 0) {
+                // Đoạn mã sử dụng Path.Combine() để tạo đường dẫn đầy đủ đến thư mục lưu trữ tệp tin ảnh
+                // sử dụng Directory.GetCurrentDirectory() để lấy thư mục hiện tại của ứng dụng
+                var path = Path.Combine(Directory.GetCurrentDirectory(), url_anh, model.Image.FileName);
+                using (var stream = System.IO.File.Create(path)) {
                     await model.Image.CopyToAsync(stream);
                 }
                 findP.Img = "~/img/more_pic/" + model.Image.FileName;
             }
-            else
-            {
+            else {
                 findP.Img = "";
             }
-            try
-            {
+            try {
                 return await ctx.SaveChangesAsync() > 0;
             }
-            catch
-            {
+            catch {
                 return false;
             }
         }
@@ -623,6 +611,7 @@ namespace QuanLyKhachSanAPI.Controllers
                 return Ok(add);
             }
         }
+
         [HttpGet("GetMonNoiBat")]
         public async Task<ActionResult<MonnoibatViewModel>> GetMonNoiBat()
         {

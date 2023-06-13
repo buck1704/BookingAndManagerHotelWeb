@@ -133,12 +133,12 @@
                     <input type="hidden" name="MaDichVu" id="MaDichVu" value="">
                     <script>
                         fetch('https://localhost:7146/api/HotelManager/GetAllDichVu').then(response => response.json()).then(data => { 
-                                console.log(data)                                                       // Hiển thị dữ liệu trả về từ API trong console của trình duyệt
+                                console.log(data)                                                       // hiển thị dữ liệu trả về từ API trong console của trình duyệt
                                 data.forEach(item => {
                                     const input = document.createElement('input');
                                     input.type = 'checkbox';
                                     input.name = 'dv';
-                                    input.id = item.id;                                                 // 
+                                    input.id = item.id;                                                 // đặt thuộc tính id của checkbox thành giá trị id của mỗi dịch vụ.
                                     input.value = item.donGia;
 
                                     const label = document.createElement('label');

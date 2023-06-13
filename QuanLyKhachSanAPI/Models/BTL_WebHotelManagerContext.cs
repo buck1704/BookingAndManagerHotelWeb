@@ -116,7 +116,7 @@ namespace QuanLyKhachSanAPI.Models
                 entity.Property(e => e.Gia).HasMaxLength(50);
 
                 entity.Property(e => e.Img)
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .HasColumnName("IMG");
 
                 entity.Property(e => e.TenDoUong).HasMaxLength(50);
@@ -131,7 +131,7 @@ namespace QuanLyKhachSanAPI.Models
                 entity.Property(e => e.Gia).HasMaxLength(50);
 
                 entity.Property(e => e.Img)
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .HasColumnName("IMG");
 
                 entity.Property(e => e.TenMon).HasMaxLength(50);
@@ -146,7 +146,7 @@ namespace QuanLyKhachSanAPI.Models
                 entity.Property(e => e.Gia).HasMaxLength(50);
 
                 entity.Property(e => e.Img)
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .HasColumnName("IMG");
 
                 entity.Property(e => e.TenMon).HasMaxLength(50);
@@ -161,7 +161,7 @@ namespace QuanLyKhachSanAPI.Models
                 entity.Property(e => e.Gia).HasMaxLength(50);
 
                 entity.Property(e => e.Img)
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .HasColumnName("IMG");
 
                 entity.Property(e => e.TenMon).HasMaxLength(50);
@@ -176,7 +176,7 @@ namespace QuanLyKhachSanAPI.Models
                 entity.Property(e => e.Gia).HasMaxLength(50);
 
                 entity.Property(e => e.Img)
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .HasColumnName("IMG");
 
                 entity.Property(e => e.TenMon).HasMaxLength(50);
@@ -273,7 +273,7 @@ namespace QuanLyKhachSanAPI.Models
                 entity.Property(e => e.Gia).HasMaxLength(50);
 
                 entity.Property(e => e.Img)
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .HasColumnName("IMG");
 
                 entity.Property(e => e.TenSet).HasMaxLength(50);

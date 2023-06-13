@@ -648,34 +648,25 @@ namespace QuanLyKhachSanClient.Controllers
 
         #region monnoibat
         [HttpPost]
-        public async Task<IActionResult> Restaurant_MonNoiBat_Add(MonnoibatModel model, IFormFile imgFile)
-        {
-            using (var httpClient = _factory.CreateClient())
-            {
-                using (var content = new MultipartFormDataContent())
-                {
+        public async Task<IActionResult> Restaurant_MonNoiBat_Add(MonnoibatModel model, IFormFile imgFile) {
+            using (var httpClient = _factory.CreateClient()) {
+                using (var content = new MultipartFormDataContent()) {
                     content.Add(new StringContent(model.TenMon), "TenMon");
                     content.Add(new StringContent(model.Gia.ToString()), "Gia");
-
                     // Thêm tệp tin ảnh vào content
-                    if (imgFile != null)
-                    {
-                        using (var stream = new MemoryStream())
-                        {
-                            await imgFile.CopyToAsync(stream);
+                    if (imgFile != null) {
+                        using (var stream = new MemoryStream()) {               // Luồng dữ liệu để lưu trữ dữ liệu của tập tin
+                            await imgFile.CopyToAsync(stream);                  
                             stream.Seek(0, SeekOrigin.Begin);
                             byte[] imageData = stream.ToArray();
                             content.Add(new ByteArrayContent(imageData), "Img", imgFile.FileName);
                         }
                     }
-                    using (var response = await httpClient.PostAsync(BASE_URL + $"/api/admin/Create_MonNoiBat", content))
-                    {
-                        if (response.IsSuccessStatusCode)
-                        {
+                    using (var response = await httpClient.PostAsync(BASE_URL + $"/api/admin/Create_MonNoiBat", content)) {
+                        if (response.IsSuccessStatusCode) {
                             return RedirectToAction("Restaurant_MonNoiBat_Index");
                         }
-                        else
-                        {
+                        else {
                             string errorContent = await response.Content.ReadAsStringAsync();
                             ViewData["error"] = "Lỗi thêm món  mới:" + errorContent;
                             return View("Restaurant_MonNoiBat_Create");
@@ -684,6 +675,7 @@ namespace QuanLyKhachSanClient.Controllers
                 }
             }
         }
+
         public async Task<IActionResult> Restaurant_MonNoiBat_Edit(int id)
         {
             HttpClient client = _factory.CreateClient();

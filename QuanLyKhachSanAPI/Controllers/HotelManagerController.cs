@@ -14,10 +14,8 @@ namespace QuanLyKhachSanAPI.Controllers
 
         #region Tài Khoản
         [HttpGet("login/{email}/{password}")]
-        public async Task<ActionResult<Quanlytaikhoan>> CheckLogin(string email, string password)
-        {
+        public async Task<ActionResult<Quanlytaikhoan>> CheckLogin(string email, string password) {
             var result = await ctx.Quanlytaikhoans.FirstOrDefaultAsync(em => (em.Email == email || em.Sdt == email) && em.PassWord == password);
-
             if (result == null) {
                 return NotFound();
             }
@@ -26,8 +24,7 @@ namespace QuanLyKhachSanAPI.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> CheckDangKy(Quanlytaikhoan addtaikhoan)
-        {
+        public async Task<IActionResult> CheckDangKy(Quanlytaikhoan addtaikhoan) {
             if (await ctx.Quanlytaikhoans.AnyAsync(q => q.Email == addtaikhoan.Email)) {
                 return BadRequest(new { error = "Email đã được sử dụng" });
             }
@@ -53,15 +50,10 @@ namespace QuanLyKhachSanAPI.Controllers
 
         [HttpPut("suataikhoan/{idkhachhang}/{ten}/{sdt}/{email}/{cmnd}/{pass}")]
 
-        public async Task<IActionResult> SuaTaiKhoan(int  idkhachhang, string ten, string sdt, string email, string cmnd, string pass)
-        {
-            var cn = await ctx.Quanlytaikhoans
-                .Where(em => em.Sdt == sdt || em.Email == email || em.Id== idkhachhang)
-                .OrderBy(em => em.Id != idkhachhang)
-                .ToListAsync();
+        public async Task<IActionResult> SuaTaiKhoan(int  idkhachhang, string ten, string sdt, string email, string cmnd, string pass) {
+            var cn = await ctx.Quanlytaikhoans.Where(em => em.Sdt == sdt || em.Email == email || em.Id== idkhachhang).OrderBy(em => em.Id != idkhachhang).ToListAsync();
 
-            if (cn.Count > 1)
-            {
+            if (cn.Count > 1) {
                 return BadRequest(new { error = "Số điện thoại hoặc email đã tồn tại" });
             }
             else
