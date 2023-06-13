@@ -5,7 +5,7 @@ namespace QuanLyKhachSanAPI.Models
 {
     public partial class Img_Chitietphong
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int IdPhong { get; set; } 
         public string TenPhong { get; set; } = null!;
         public int NguoiMax { get; set; }

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Restaurant_MonNoiBat_Index";
 }
 @using QuanLyKhachSanClient.Models;
@@ -161,31 +160,31 @@
         <div style="display:flex">
             @if (Model.Count() > 0)
             {
-                <h3>Món Nổi Bật</h3>
-                <table><thead>
-                    <th>ID</th>
-                    <th>Tên Món</th>
-                    <th>Giá</th>
-                    <th>IMG</th>
-                    <th>Thao Tác</th>
-                </thead><tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.TenMon</td>
-                        <td>@item.Gia</td>
-                        <td>@item.Img</td>
-                        <td>
-                                    <a href="@Url.Action("Restaurant_MonNoiBat_Edit", "admin", new { id = @item.Id })">Sửa </a>
-                                    <a href="@Url.Action("Restaurant_MonNoiBat_Delete", "admin", new { id = @item.Id });"> Xóa </a>
-                        </td>
-                    </tr>
-                }
-                    </tbody></table>
-                    <button><a style="color:white; font-size:40px" href="@Url.Action("Restaurant_MonNoiBat_Create", "admin")">+</a></button>
+                    <h3>Món Nổi Bật</h3>
+                    <table><thead>
+                        <th>ID</th>
+                        <th>Tên Món</th>
+                        <th>Giá</th>
+                        <th>IMG</th>
+                        <th>Thao Tác</th>
+                    </thead><tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.TenMon</td>
+                                <td>@item.Gia</td>
+                                <td>@item.Img</td>
+                                <td>
+                                        <a href="@Url.Action("Restaurant_MonNoiBat_Edit", "admin", new { id = @item.Id })">Sửa</a>
+                                        <a href="@Url.Action("Restaurant_MonNoiBat_Delete", "admin", new { id = @item.Id })">Xoá</a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody></table>
+                        <button><a style="color:white; font-size:40px" href="@Url.Action("Restaurant_MonNoiBat_Create", "admin")">+</a></button>
             }
-           
+
     </div>
     <script src="../common/bootstrap-5.2.2-dist/js/popper.min.js"></script>
     <script src="../common/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>

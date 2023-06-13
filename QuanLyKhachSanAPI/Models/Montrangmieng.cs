@@ -15,7 +15,7 @@ namespace QuanLyKhachSanAPI.Models
 
     public partial class MontrangmiengModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string TenMon { get; set; } = null!;
         public string Gia { get; set; } = null!;
         public IFormFile Img { get; set; } = null!;

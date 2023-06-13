@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MsP+TG6Ope3ebyMNd8E1vlf8QOo0si1GVBFM0oQzubU=",
+  "Hash": "e0AgyvzRhgumfD+UKkI7PTks+qrzco47pVrKmo0A5IU=",
   "Source": "QuanLyKhachSanClient",
   "BasePath": "_content/QuanLyKhachSanClient",
   "Mode": "Default",
@@ -3434,6 +3434,23 @@
       "OriginalItemSpec": "wwwroot\\img\\more_pic\\z4339995756534_fb440fe9252c455eafb391530ea06141.jpg"
     },
     {
+      "Identity": "C:\\Users\\84336\\source\\repos\\QuanLyKhachSanAPI (1)\\QuanLyKhachSanClient\\wwwroot\\img\\new_pic\\277475840_409239914540691_3604194387287640130_n.png",
+      "SourceId": "QuanLyKhachSanClient",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\84336\\source\\repos\\QuanLyKhachSanAPI (1)\\QuanLyKhachSanClient\\wwwroot\\",
+      "BasePath": "_content/QuanLyKhachSanClient",
+      "RelativePath": "img/new_pic/277475840_409239914540691_3604194387287640130_n.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\new_pic\\277475840_409239914540691_3604194387287640130_n.png"
+    },
+    {
       "Identity": "C:\\Users\\84336\\source\\repos\\QuanLyKhachSanAPI (1)\\QuanLyKhachSanClient\\wwwroot\\img\\new_pic\\291335805_5324132277632289_7334184981067450616_n.jpg",
       "SourceId": "QuanLyKhachSanClient",
       "SourceType": "Discovered",
@@ -3483,6 +3500,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\new_pic\\340559576_192403320252718_8600679917883987040_n.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\84336\\source\\repos\\QuanLyKhachSanAPI (1)\\QuanLyKhachSanClient\\wwwroot\\img\\new_pic\\343723070_3392363817705514_8706340053708989345_n.jpg",
+      "SourceId": "QuanLyKhachSanClient",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\84336\\source\\repos\\QuanLyKhachSanAPI (1)\\QuanLyKhachSanClient\\wwwroot\\",
+      "BasePath": "_content/QuanLyKhachSanClient",
+      "RelativePath": "img/new_pic/343723070_3392363817705514_8706340053708989345_n.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\new_pic\\343723070_3392363817705514_8706340053708989345_n.jpg"
     },
     {
       "Identity": "C:\\Users\\84336\\source\\repos\\QuanLyKhachSanAPI (1)\\QuanLyKhachSanClient\\wwwroot\\img\\new_pic\\pexels-brakou-abdelghani-1723637.jpg",

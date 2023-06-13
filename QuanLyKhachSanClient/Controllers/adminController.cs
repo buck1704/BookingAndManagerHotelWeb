@@ -753,8 +753,7 @@ namespace QuanLyKhachSanClient.Controllers
                 return View("Restaurant_MonNoiBat_Delete");
             }
             var result = await response.Content.ReadFromJsonAsync<List<MonnoibatViewModel>>();
-            if (result == null || result.Count == 0)
-            {
+            if (result == null || result.Count == 0) {
                 ViewData["error"] = "Không tìm thấy thông tin món";
                 return View("Restaurant_MonNoiBat_Delete");
             }
@@ -891,6 +890,8 @@ namespace QuanLyKhachSanClient.Controllers
                 }
             }
         }
+
+
         public async Task<IActionResult> Restaurant_MonTrangMieng_Delete(int id)
         {
             HttpClient client = _factory.CreateClient();
