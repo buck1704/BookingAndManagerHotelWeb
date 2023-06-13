@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QuanLyKhachSanAPI.Models
-{
-    public partial class Quanlytaikhoan
-    {
-        public Quanlytaikhoan()
-        {
+namespace QuanLyKhachSanAPI.Models {
+    public partial class Quanlytaikhoan {
+        public Quanlytaikhoan() {
             Phieudatphongs = new HashSet<Phieudatphong>();
         }
-
         public int Id { get; set; }
         public string HoTen { get; set; } = null!;
         public string Sdt { get; set; } = null!;

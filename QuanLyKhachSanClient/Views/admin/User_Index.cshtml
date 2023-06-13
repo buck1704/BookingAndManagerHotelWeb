@@ -13,10 +13,7 @@
     <link rel="stylesheet" href="../common/bootstrap-5.2.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        table,
-        tr,
-        td,
-        th {
+        table, tr, td, th {
             border: 1px solid black;
             border-spacing: 0;
             text-align: center;
@@ -29,7 +26,7 @@
             color: blue;
             margin-top: 10px;
         }
-        i  { margin-right: 10px;
+        i { margin-right: 10px;
         }
         button{
             margin-top: 200px;
@@ -101,7 +98,6 @@
                     <li class="nav">
                         <a href="#" class="admin">
                             <i class="fa-solid fa-user"></i>
-
                         </a>
                         <ul class="sub-nav">
                             <li><a href="@Url.Action("DangNhap", " admin")">Logout</a></li>
@@ -151,8 +147,7 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach (var item in Model)
-            {
+            @foreach (var item in Model) {
             <tr>
                 <td>@item.Id</td>
                 <td>@item.HoTen</td>
@@ -174,7 +169,7 @@
 
         </div>
         <script src="../common/bootstrap-5.2.2-dist/js/popper.min.js"></script>
-    <script src="../common/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
+        <script src="../common/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

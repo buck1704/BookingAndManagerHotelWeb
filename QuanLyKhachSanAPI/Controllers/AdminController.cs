@@ -51,11 +51,9 @@ namespace QuanLyKhachSanAPI.Controllers
         }
 
         [HttpPost("User_Update/{id}/{hoten}/{sdt}/{email}/{cmnd}/{password}")]
-        public async Task<bool> UpdateById(int id, string hoten, string sdt, string email, string cmnd, string password)
-        {
+        public async Task<bool> UpdateById(int id, string hoten, string sdt, string email, string cmnd, string password) {
             var taikhoan = await ctx.Quanlytaikhoans.SingleOrDefaultAsync(t => t.Id == id);
-            if (taikhoan == null)
-            {
+            if (taikhoan == null) {
                 return false;
             }
             taikhoan.HoTen = hoten;
@@ -63,33 +61,32 @@ namespace QuanLyKhachSanAPI.Controllers
             taikhoan.Email = email;
             taikhoan.Cmnd = cmnd;
             taikhoan.PassWord = password;
-            try
-            {
+            try {
                 return await ctx.SaveChangesAsync() > 0;
             }
-            catch
-            {
+            catch {
                 return false;
             }
         }
 
         [HttpPost("SignUp")]
-        public async Task<IActionResult> CheckDangKy(Quanlytaikhoan addtaikhoan)
-        {
-            if (await ctx.Quanlytaikhoans.AnyAsync(q => q.Email == addtaikhoan.Email))
-            {
-                return BadRequest(new { error = "Email đã được sử dụng" });
+        public async Task<IActionResult> CheckDangKy(Quanlytaikhoan addtaikhoan) {
+            if (await ctx.Quanlytaikhoans.AnyAsync(q => q.Email == addtaikhoan.Email)) {
+                return BadRequest(new { 
+                    error = "Email đã được sử dụng" 
+                });
             }
-            if (await ctx.Quanlytaikhoans.AnyAsync(q => q.Sdt == addtaikhoan.Sdt))
-            {
-                return BadRequest(new { error = "Số điện thoại đã được sử dụng" });
+            if (await ctx.Quanlytaikhoans.AnyAsync(q => q.Sdt == addtaikhoan.Sdt)) {
+                return BadRequest(new { 
+                    error = "Số điện thoại đã được sử dụng" 
+                });
             }
-            if (string.IsNullOrEmpty(addtaikhoan.HoTen) || string.IsNullOrEmpty(addtaikhoan.Sdt) || string.IsNullOrEmpty(addtaikhoan.Email) || string.IsNullOrEmpty(addtaikhoan.Cmnd))
-            {
-                return BadRequest(new { error = "Vui lòng nhập đầy dủ thông tin!" });
+            if (string.IsNullOrEmpty(addtaikhoan.HoTen) || string.IsNullOrEmpty(addtaikhoan.Sdt) || string.IsNullOrEmpty(addtaikhoan.Email) || string.IsNullOrEmpty(addtaikhoan.Cmnd)) {
+                return BadRequest(new { 
+                    error = "Vui lòng nhập đầy dủ thông tin!" 
+                });
             }
-            var dangky = new Quanlytaikhoan()
-            {
+            var dangky = new Quanlytaikhoan() {
                 HoTen = addtaikhoan.HoTen,
                 Sdt = addtaikhoan.Sdt,
                 Email = addtaikhoan.Email,
@@ -104,8 +101,7 @@ namespace QuanLyKhachSanAPI.Controllers
         [HttpDelete("DeleteUser/{id}")]
         public async Task<ActionResult<bool>> DeleteUser(int id)
         {
-            using (var ctx = new BTL_WebHotelManagerContext())
-            {
+            using (var ctx = new BTL_WebHotelManagerContext()) {
                 var taikhoan = await ctx.Quanlytaikhoans.FindAsync(id);
                 if (taikhoan == null)
                     return NotFound();

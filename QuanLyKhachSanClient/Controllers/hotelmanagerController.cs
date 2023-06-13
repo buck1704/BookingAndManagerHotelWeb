@@ -572,31 +572,27 @@ namespace QuanLyKhachSanClient.Controllers
         [HttpPost]
         public async Task<IActionResult> thongtinphong(int ma, string sdt)
         {
-            if (string.IsNullOrEmpty(ma.ToString()) || string.IsNullOrEmpty(sdt))
-            {
+            if (string.IsNullOrEmpty(ma.ToString()) || string.IsNullOrEmpty(sdt)){
                 ViewBag.Error = "Vui lòng nhập đầy đủ thông tin!";
                 return View("roomcheck");
             }
             HttpClient client = _factory.CreateClient();
             var response = await client.GetAsync(BASE_URL + $"/api/HotelManager/GetKiemTraPhong/{ma}/{sdt}");
 
-            if (!response.IsSuccessStatusCode)
-            {
+            if (!response.IsSuccessStatusCode) {
                 ViewBag.Error = "Thông tin sai";
                 return View("roomcheck");
             }
            
-            try
-            {
+            try {
                 var result = await response.Content.ReadAsStringAsync();
                 dynamic thongtinphong = JsonConvert.DeserializeObject<dynamic>(result);
 
                 return View("thongtinphong", thongtinphong);
             }
 
-            catch (Exception ex)
-            {
-                ViewBag.Error = "Cíu tao: " + ex.Message;
+            catch (Exception ex) {
+                ViewBag.Error = "Lỗi: " + ex.Message;
                 ViewBag.JsonResponse = await response.Content.ReadAsStringAsync();
                 return View();
             }
@@ -675,8 +671,6 @@ namespace QuanLyKhachSanClient.Controllers
 
                 return View("history", phongs);
             }
-
-
             return NotFound();
 
         }
@@ -702,8 +696,7 @@ namespace QuanLyKhachSanClient.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMonAn()
-        {
+        public async Task<IActionResult> GetMonAn(){
             HttpClient client = _factory.CreateClient();
             var response = await client.GetAsync(BASE_URL + "/api/admin/GetMonChinh");
             var response1 = await client.GetAsync(BASE_URL + "/api/admin/GetMonKhaiVi");
@@ -712,8 +705,7 @@ namespace QuanLyKhachSanClient.Controllers
             var response4 = await client.GetAsync(BASE_URL + "/api/admin/GetDoUong");
             var response5 = await client.GetAsync(BASE_URL + "/api/admin/GetBufet");
 
-            if (!response.IsSuccessStatusCode || !response1.IsSuccessStatusCode || !response2.IsSuccessStatusCode || !response3.IsSuccessStatusCode || !response4.IsSuccessStatusCode || !response.IsSuccessStatusCode)
-            {
+            if (!response.IsSuccessStatusCode || !response1.IsSuccessStatusCode || !response2.IsSuccessStatusCode || !response3.IsSuccessStatusCode || !response4.IsSuccessStatusCode || !response.IsSuccessStatusCode) {
                 ViewData["error"] = "Lỗi hiển thị thông tin";
                 return View("TrangChu");
             }
@@ -732,10 +724,8 @@ namespace QuanLyKhachSanClient.Controllers
             var dounongs = new List<DouongViewModel>();
             var buffets = new List<SetbuffetViewModel>();
 
-            foreach (var item in result)
-            {
-                var mc = new MonchinhViewModel()
-                {
+            foreach (var item in result) {
+                var mc = new MonchinhViewModel() {
                     Id = item.Id,
                     TenMon = item.TenMon,
                     Gia = item.Gia,
@@ -744,10 +734,8 @@ namespace QuanLyKhachSanClient.Controllers
                 monchinhs.Add(mc);
             }
 
-            foreach (var item in result1)
-            {
-                var mkv = new MonkhaiviViewModel()
-                {
+            foreach (var item in result1) {
+                var mkv = new MonkhaiviViewModel() {
                     Id = item.Id,
                     TenMon = item.TenMon,
                     Gia = item.Gia,
@@ -756,10 +744,8 @@ namespace QuanLyKhachSanClient.Controllers
                 monkhaivis.Add(mkv);
             }
 
-            foreach (var item in result2)
-            {
-                var mnb = new MonnoibatViewModel()
-                {
+            foreach (var item in result2) {
+                var mnb = new MonnoibatViewModel() {
                     Id = item.Id,
                     TenMon = item.TenMon,
                     Gia = item.Gia,
@@ -768,10 +754,8 @@ namespace QuanLyKhachSanClient.Controllers
                 monnoibats.Add(mnb);
             }
 
-            foreach (var item in result3)
-            {
-                var mtm = new MontrangmiengViewModel()
-                {
+            foreach (var item in result3) {
+                var mtm = new MontrangmiengViewModel() {
                     Id = item.Id,
                     TenMon = item.TenMon,
                     Gia = item.Gia,
@@ -780,10 +764,8 @@ namespace QuanLyKhachSanClient.Controllers
                 montrangmiengs.Add(mtm);
             }
 
-            foreach (var item in result4)
-            {
-                var du = new DouongViewModel()
-                {
+            foreach (var item in result4) {
+                var du = new DouongViewModel() {
                     Id = item.Id,
                     TenDoUong = item.TenDoUong,
                     Gia = item.Gia,
@@ -791,10 +773,9 @@ namespace QuanLyKhachSanClient.Controllers
                 };
                 dounongs.Add(du);
             }
-            foreach (var item in result5)
-            {
-                var du = new SetbuffetViewModel()
-                {
+
+            foreach (var item in result5) {
+                var du = new SetbuffetViewModel() {
                     Id = item.Id,
                     TenSet = item.TenSet,
                     Gia = item.Gia,
@@ -811,8 +792,6 @@ namespace QuanLyKhachSanClient.Controllers
             ViewBag.Buffets = buffets;
             // Truyền danh sách món ăn sang view
             return View("restaurant");
-
-
         }
 
     }

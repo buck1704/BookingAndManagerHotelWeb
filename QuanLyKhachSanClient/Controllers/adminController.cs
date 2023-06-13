@@ -11,67 +11,54 @@ using System.Web;
 
 namespace QuanLyKhachSanClient.Controllers
 {
-    public class adminController : Controller
-    {
+    public class adminController : Controller {
         const string BASE_URL = "http://localhost:5071";
         IHttpClientFactory factory;
         private readonly IHttpClientFactory _factory;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public adminController(IHttpClientFactory factory, IHttpContextAccessor httpContextAccessor)
-        {
+        public adminController(IHttpClientFactory factory, IHttpContextAccessor httpContextAccessor) {
             _factory = factory;
             _httpContextAccessor = httpContextAccessor;
         }
-        
-        public IActionResult DangNhap()
-        {
+
+        #region view
+        public IActionResult DangNhap() {
             return View();
         }
-        public IActionResult QuanLyDatPhong()
-        {
+        public IActionResult QuanLyDatPhong() {
             return View();
         }
-        public IActionResult User_Create()
-        {
+        public IActionResult User_Create() {
+            return View();
+        }
+        public IActionResult Room_Create() {
             return View();
         }
 
-        public IActionResult Room_Create()
-        {
+        public IActionResult Restaurant_Index() {
             return View();
         }
 
-        public IActionResult Restaurant_Index()
-        {
+        public IActionResult Restaurant_Buffet_Create() {
+            return View();
+        }
+        public IActionResult Restaurant_DoUong_Create() {
+            return View();
+        }
+        public IActionResult Restaurant_MonChinh_Create() {
+            return View();
+        }
+        public IActionResult Restaurant_MonKhaiVi_Create() {
+            return View();
+        }
+        public IActionResult Restaurant_MonNoiBat_Create() {
+            return View();
+        }
+        public IActionResult Restaurant_MonTrangMieng_Create() {
             return View();
         }
 
-        public IActionResult Restaurant_Buffet_Create()
-        {
-            return View();
-        }
-        public IActionResult Restaurant_DoUong_Create()
-        {
-            return View();
-        }
-        public IActionResult Restaurant_MonChinh_Create()
-        {
-            return View();
-        }
-        public IActionResult Restaurant_MonKhaiVi_Create()
-        {
-            return View();
-        }
-        public IActionResult Restaurant_MonNoiBat_Create()
-        {
-            return View();
-        }
-        public IActionResult Restaurant_MonTrangMieng_Create()
-        {
-            return View();
-        }
-       
-  
+        #endregion
 
 
         [HttpPost]
@@ -181,13 +168,11 @@ namespace QuanLyKhachSanClient.Controllers
 
             return View("Restaurant_MonKhaiVi_Index", result);
         }
-        public async Task<IActionResult> Restaurant_MonNoiBat_Index()
-        {
+        public async Task<IActionResult> Restaurant_MonNoiBat_Index() {
             HttpClient client = _factory.CreateClient();
             var response = await client.GetAsync(BASE_URL + $"/api/admin/GetRestaurant_MonNoiBat");
 
-            if (!response.IsSuccessStatusCode)
-            {
+            if (!response.IsSuccessStatusCode) {
                 ViewData["error"] = "Lỗi hiển thị phòng";
                 return View();
             }
@@ -196,13 +181,11 @@ namespace QuanLyKhachSanClient.Controllers
 
             return View("Restaurant_MonNoiBat_Index", result);
         }
-        public async Task<IActionResult> Restaurant_MonTrangMieng_Index()
-        {
+        public async Task<IActionResult> Restaurant_MonTrangMieng_Index() {
             HttpClient client = _factory.CreateClient();
             var response = await client.GetAsync(BASE_URL + $"/api/admin/GetMonTrangMieng");
 
-            if (!response.IsSuccessStatusCode)
-            {
+            if (!response.IsSuccessStatusCode) {
                 ViewData["error"] = "Lỗi hiển thị phòng";
                 return View();
             }
@@ -216,14 +199,12 @@ namespace QuanLyKhachSanClient.Controllers
         #region user
         // thêm người dùng
         [HttpPost]
-        public async Task<IActionResult> SignUp(Quanlytaikhoan addtaikhoan)
-        {
+        public async Task<IActionResult> SignUp(Quanlytaikhoan addtaikhoan) {
             HttpClient client = _factory.CreateClient();
             var content = new StringContent(JsonConvert.SerializeObject(addtaikhoan), Encoding.UTF8, "application/json");
             var response = await client.PostAsync(BASE_URL + $"/api/admin/SignUp", content);
 
-            if (response.StatusCode == HttpStatusCode.BadRequest)
-            {
+            if (response.StatusCode == HttpStatusCode.BadRequest) {
                 var errorResponse = await response.Content.ReadAsStringAsync();
                 dynamic errorObject = JsonConvert.DeserializeObject<dynamic>(errorResponse);
                 string error = errorObject.error;
@@ -239,20 +220,17 @@ namespace QuanLyKhachSanClient.Controllers
         {
             HttpClient client = _factory.CreateClient();
             var response = await client.GetAsync(BASE_URL + $"/api/admin/GetUser/{id}");
-            if (!response.IsSuccessStatusCode)
-            {
+            if (!response.IsSuccessStatusCode) {
                 ViewData["error"] = "Lỗi hiển thị thông tin người dùng";
                 return View("User_Index");
             }
             var result = await response.Content.ReadFromJsonAsync<List<Quanlytaikhoan>>();
-            if (result == null || result.Count == 0)
-            {
+            if (result == null || result.Count == 0) {
                 ViewData["error"] = "Không tìm thấy thông tin người dùng";
                 return View("User_Index");
             }
             var item = result[0];
-            var user = new Quanlytaikhoan
-            {
+            var user = new Quanlytaikhoan {
                 Id = item.Id,
                 HoTen = item.HoTen,
                 Sdt = item.Sdt,
@@ -262,17 +240,16 @@ namespace QuanLyKhachSanClient.Controllers
             };
             return View(user);
         }
-        // cập nhật thông tin
+
+        // Cập nhật thông tin
         [HttpPost]
         public async Task<IActionResult> User_Put(int id, string hoten, string sdt, string email, string cmnd, string password)
         {
-            var data = new List<object>
-                {
+            var data = new List<object> {
                     new { id, hoten, sdt, email, cmnd, password }
                 };
 
-            var jsonContent = JsonConvert.SerializeObject(data);
-            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
 
             var request = new HttpRequestMessage(HttpMethod.Post, BASE_URL + $"/api/admin/User_Update/{id}/{hoten}/{sdt}/{email}/{cmnd}/{password}");
             request.Content = content;
@@ -280,35 +257,30 @@ namespace QuanLyKhachSanClient.Controllers
             var client = _factory.CreateClient();
             var response = await client.SendAsync(request);
 
-            if (response.IsSuccessStatusCode)
-            {
+            if (response.IsSuccessStatusCode) {
                 return RedirectToAction("User_Index");
             }
-            else
-            {
+            else {
                 ViewData["error"] = "Lỗi cập nhật thông tin khách hàng";
                 return View("User_Edit");
             }
         }
+
         // lấy thông tin người dùng để xoá
-        public async Task<IActionResult> User_Delete(int id)
-        {
+        public async Task<IActionResult> User_Delete(int id) {
             HttpClient client = _factory.CreateClient();
             var response = await client.GetAsync(BASE_URL + $"/api/admin/GetUser/{id}");
-            if (!response.IsSuccessStatusCode)
-            {
+            if (!response.IsSuccessStatusCode) {
                 ViewData["error"] = "Lỗi hiển thị thông tin người dùng";
                 return View("User_Delete");
             }
             var result = await response.Content.ReadFromJsonAsync<List<Quanlytaikhoan>>();
-            if (result == null || result.Count == 0)
-            {
+            if (result == null || result.Count == 0) {
                 ViewData["error"] = "Không tìm thấy thông tin người dùng";
                 return View("User_Delete");
             }
             var item = result[0];
-            var user = new Quanlytaikhoan
-            {
+            var user = new Quanlytaikhoan {
                 Id = item.Id,
                 HoTen = item.HoTen,
                 Sdt = item.Sdt,
@@ -318,15 +290,13 @@ namespace QuanLyKhachSanClient.Controllers
             };
             return View(user);
         }
+
         // xoá người dùng
         [HttpPost]
-        public async Task<IActionResult> User_Delete_Conf(int id)
-        {
-            using (var client = _factory.CreateClient())
-            {
+        public async Task<IActionResult> User_Delete_Conf(int id) {
+            using (var client = _factory.CreateClient()) {
                 var response = await client.DeleteAsync(BASE_URL + $"/api/admin/DeleteUser/{id}");
-                if (!response.IsSuccessStatusCode)
-                {
+                if (!response.IsSuccessStatusCode) {
                     ViewData["error"] = "Xóa thất bại";
                     return View("User_Index");
                 }
@@ -675,6 +645,7 @@ namespace QuanLyKhachSanClient.Controllers
         #region douong
 
         #endregion
+
         #region monnoibat
         [HttpPost]
         public async Task<IActionResult> Restaurant_MonNoiBat_Add(MonnoibatModel model, IFormFile imgFile)
@@ -1417,6 +1388,7 @@ namespace QuanLyKhachSanClient.Controllers
         }
 
         #endregion
+
         [HttpGet]
         public async Task<IActionResult> QuanLyDatPhongd()
         {

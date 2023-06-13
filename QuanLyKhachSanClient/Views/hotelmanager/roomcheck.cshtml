@@ -1,14 +1,14 @@
 ﻿@{
     ViewData["Title"] = "roomcheck";
 }
-@if (!string.IsNullOrEmpty(ViewBag.Error))
-{
+@if (!string.IsNullOrEmpty(ViewBag.Error)) {
     <script>
         alert('@Html.Raw( ViewBag.Error)');
     </script>
 }
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,13 +20,14 @@
     <!-- CSS only -->
     <link rel="stylesheet" href="../common/bootstrap-5.2.2-dist/css/bootstrap.min.css">
 </head>
+
 <body>
-     <!-- header -->
+    <!-- header -->
     @Html.Partial("header.cshtml")
     <!-- banner -->
 
     <section id="banner">
-        <div class="container-fluid p-0 text-center">                   
+        <div class="container-fluid p-0 text-center">
             <div class="img h-100">
                 <img src="../img/pay/banner.jpg" alt="" class="w-100">
                 <div class="box">
@@ -42,22 +43,23 @@
 
     <!-- end banner -->
     <section id="check">
-       <div class="checkroom_infor">
-           <form method="POST" action="thongtinphong">
+        <div class="checkroom_infor">
 
-            <div class="infor_item"><input type="text" name="ma" id="ma" placeholder="Nhập mã phòng"></div>
-            <div class="infor_item"><input type="text" name="sdt" id="sdt" placeholder="Nhập số điện thoại"></div>
-            <div class="infor_item"><button id="btn" type="submit" name="btn">Kiểm Tra</button></div>
-        </form>
+            <form method="POST" action="thongtinphong">
+                <div class="infor_item"><input type="text" name="ma" id="ma" placeholder="Nhập mã phòng"></div>
+                <div class="infor_item"><input type="text" name="sdt" id="sdt" placeholder="Nhập số điện thoại"></div>
+                <div class="infor_item"><button id="btn" type="submit" name="btn">Kiểm Tra</button></div>
+            </form>
 
-    </div>  
+        </div>
     </section>
-    
 
-     <!-- footer -->
+
+    <!-- footer -->
     @Html.Partial("footer.cshtml")
 
     <script src="../common/bootstrap-5.2.2-dist/js/popper.min.js"></script>
     <script src="../common/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
-</body> 
+</body>
+
 </html>
