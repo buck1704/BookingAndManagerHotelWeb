@@ -163,7 +163,6 @@
         <div style="display:flex">
             @if (Model.Count() > 0)
             {
-                <h3>Đồ Uống</h3>
                 <table><thead>
                     <th>ID</th>
                     <th>Tên Món</th>
@@ -179,8 +178,8 @@
                         <td>@item.Gia</td>
                         <td>@item.Img</td>
                         <td>
-                                    <a href="@Url.Action("Restaurant_DoUong_Edit", "admin", new { id = @item.Id })">Sửa</a>
-                                    <a href="@Url.Action("Restaurant_DoUong_Delete", "admin", new { id = @item.Id })">Xoá</a>
+                            <a href="@Url.Action("Restaurant_DoUong_Edit", "admin", new { id = @item.Id })">Sửa</a>
+                            <a href="@Url.Action("Restaurant_DoUong_Delete", "admin", new { id = @item.Id })">Xoá</a>
                         </td>
                     </tr>
                 }
